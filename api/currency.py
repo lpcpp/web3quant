@@ -46,24 +46,18 @@ class Currency():
         for item in coinmarket_data['data']:
             if start < item['quote']['USD']['market_cap'] < end and item["symbol"] in self.spot_usdt_list:
                 count += 1
+                row = [item["id"],
+                        item["symbol"],
+                        item["max_supply"],
+                        item["circulating_supply"],
+                        item["quote"]['USD']['market_cap'],
+                        item["quote"]['USD']['fully_diluted_market_cap'],
+                        item["quote"]['USD']['price']
+                ]
                 if output == "console":
-                    table.add_row([item["id"],
-                                item["symbol"],
-                                item["max_supply"],
-                                item["circulating_supply"],
-                                item["quote"]['USD']['market_cap'],
-                                item["quote"]['USD']['fully_diluted_market_cap'],
-                                item["quote"]['USD']['price']
-                                ])
+                    table.add_row(row)
                 elif output == "csv":
-                    writer.writerow([item["id"],
-                            item["symbol"],
-                            item["max_supply"],
-                            item["circulating_supply"],
-                            item["quote"]['USD']['market_cap'],
-                            item["quote"]['USD']['fully_diluted_market_cap'],
-                            item["quote"]['USD']['price']
-                            ])
+                    writer.writerow(row)
         if output == 'console':
             print(table)
         elif output == 'csv':
